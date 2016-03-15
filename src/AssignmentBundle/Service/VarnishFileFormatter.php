@@ -5,7 +5,7 @@
  * Time:    18.22
  */
 
-namespace AssignmentBundle\Model;
+namespace AssignmentBundle\Service;
 
 class VarnishFileFormatter extends VarnishDomainFormatter
 {

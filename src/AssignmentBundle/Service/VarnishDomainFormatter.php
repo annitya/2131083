@@ -5,9 +5,10 @@
  * Time:    16.52
  */
 
-namespace AssignmentBundle\Model;
+namespace AssignmentBundle\Service;
 
 use AssignmentBundle\Interfaces\Formatter;
+use AssignmentBundle\Model\Item;
 use Kassner\LogParser\LogParser;
 
 class VarnishDomainFormatter implements Formatter
