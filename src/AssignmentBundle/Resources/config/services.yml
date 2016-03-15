@@ -2,12 +2,12 @@ services:
     # varnish-log
     varnish.domain_data_fetcher:
         class: %varnish.data_fetcher.class%
-        arguments: ['%varnish.source_url%', '@varnish.domain_formatter', '@descending_item_sorter']
+        arguments: ['%varnish.source_url%', '@varnish.domain_formatter', '@descending_item_sorter', '@stash']
         calls:
             - [setLimit, [%varnish.limit%]]
     varnish.file_data_fetcher:
         class: %varnish.data_fetcher.class%
-        arguments: ['%varnish.source_url%', '@varnish.file_formatter', '@descending_item_sorter']
+        arguments: ['%varnish.source_url%', '@varnish.file_formatter', '@descending_item_sorter', '@stash']
         calls:
             - [setLimit, [%varnish.limit%]]
     varnish.domain_formatter:
@@ -24,13 +24,13 @@ services:
     # article-rss
     article.rss_data_fetcher:
         class: %article.data_fetcher.class%
-        arguments: ['%article.source_url%', '@article.rss_formatter', '@descending_item_sorter']
+        arguments: ['%article.source_url%', '@article.rss_formatter', '@descending_item_sorter', '@stash']
     article.rss_formatter:
         class: %article.rss_formatter.class%
     # json-source
     json_data_fetcher:
         class: %json.data_fetcher.class%
-        arguments: ['%json.source_url%', '@json.formatter', '@descending_item_sorter']
+        arguments: ['%json.source_url%', '@json.formatter', '@descending_item_sorter', '@stash']
     json.formatter:
         class: %json.formatter.class%
     #sorting

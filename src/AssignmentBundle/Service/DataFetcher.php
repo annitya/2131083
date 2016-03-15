@@ -9,6 +9,7 @@ namespace AssignmentBundle\Service;
 
 use AssignmentBundle\Interfaces\Formatter;
 use AssignmentBundle\Interfaces\ItemSorter;
+use Tedivm\StashBundle\Service\CacheService;
 
 class DataFetcher
 {
@@ -20,18 +21,31 @@ class DataFetcher
     protected $itemSorter;
     /** @var bool|int */
     protected $limit = false;
+    /** @var CacheService */
+    protected $cache;
 
-    public function __construct($sourceUrl, Formatter $formatter, ItemSorter $itemSorter)
+    public function __construct($sourceUrl, Formatter $formatter, ItemSorter $itemSorter, CacheService $cache)
     {
         $this->sourceUrl = $sourceUrl;
         $this->formatter = $formatter;
         $this->itemSorter = $itemSorter;
+        $this->cache = $cache;
     }
 
     public function getFormattedData()
     {
-        // @TODO: Add exception handling.
-        $data = file_get_contents($this->sourceUrl);
+        $key = md5($this->sourceUrl);
+        $item = $this->cache->getItem($key);
+        if ($item->isHit()) {
+            $data = $item->get();
+        }
+        else {
+            // @TODO: Add exception handling.
+            $data = file_get_contents($this->sourceUrl);
+            $item->set($data);
+            $item->save();
+        }
+
         $items = $this->formatter->format($data);
         $items = $this->itemSorter->sort($items);
         if ($this->limit) {
