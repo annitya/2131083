@@ -1,0 +1,3 @@
+assignment_homepage:
+    path:     /
+    defaults: { _controller: AssignmentBundle:View:index }
