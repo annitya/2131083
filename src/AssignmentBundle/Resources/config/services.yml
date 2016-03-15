@@ -4,3 +4,9 @@ services:
         arguments: ['%varnish.source_url%', '@varnish.formatter']
     varnish.formatter:
         class: %varnish.data_formatter.class%
+        arguments: ['@varnish.log_parser_wrapper']
+    varnish.log_parser_wrapper:
+        class: %varnish.log_parser.class%
+        # Set nginx-format.
+        calls:
+            - [setFormat, [%varnish.log_format%]]

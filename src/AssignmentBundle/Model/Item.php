@@ -9,9 +9,12 @@ namespace AssignmentBundle\Model;
 
 class Item
 {
+    /** @var string */
     protected $description;
+    /** @var mixed */
+    protected $sortField;
 
-    public function __construct($description)
+    public function __construct($description, $sortField)
     {
         $this->description = $description;
     }
