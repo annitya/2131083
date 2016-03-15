@@ -11,3 +11,7 @@ parameters:
     article.data_fetcher.class: AssignmentBundle\Service\DataFetcher
     article.source_url: http://www.vg.no/rss/feed/forsiden/?frontId=1
     article.rss_formatter.class: AssignmentBundle\Service\ArticleFormatter
+    # json-source
+    json.data_fetcher.class: AssignmentBundle\Service\DataFetcher
+    json.source_url: http://rexxars.com/playground/testfeed/
+    json.formatter.class: AssignmentBundle\Service\JsonFormatter

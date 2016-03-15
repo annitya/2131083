@@ -9,7 +9,7 @@
                 <a href="#tab2" role="tab" data-toggle="tab">Articles</a>
             </li>
             <li>
-                <a href="#tab3" role="tab" data-toggle="tab">Tab3</a>
+                <a href="#tab3" role="tab" data-toggle="tab">Articles from json</a>
             </li>
         </ul>
         <!-- TAB CONTENT -->
@@ -21,8 +21,7 @@
                 {% include 'AssignmentBundle:parts:article-tab.html.twig' %}
             </div>
             <div class="tab-pane fade" id="tab3">
-                <h2>Tab3</h2>
-                <p>Lorem ipsum.</p>
+                {% include 'AssignmentBundle:parts:json-tab.html.twig' %}
             </div>
         </div>
     </div>

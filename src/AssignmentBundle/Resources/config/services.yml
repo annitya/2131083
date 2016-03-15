@@ -23,3 +23,9 @@ services:
         arguments: ['%article.source_url%', '@article.rss_formatter']
     article.rss_formatter:
         class: %article.rss_formatter.class%
+    # json-source
+    json_data_fetcher:
+        class: %json.data_fetcher.class%
+        arguments: ['%json.source_url%', '@json.formatter']
+    json.formatter:
+        class: %json.formatter.class%
