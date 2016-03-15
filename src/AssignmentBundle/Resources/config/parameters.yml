@@ -15,3 +15,5 @@ parameters:
     json.data_fetcher.class: AssignmentBundle\Service\DataFetcher
     json.source_url: http://rexxars.com/playground/testfeed/
     json.formatter.class: AssignmentBundle\Service\JsonFormatter
+    # sorting
+    item_sorter_descending.class: AssignmentBundle\Service\DescendingItemSorter

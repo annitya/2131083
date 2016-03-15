@@ -15,13 +15,10 @@ class VarnishDomainFormatter implements Formatter
 {
     /** @var LogParser */
     protected $logParser;
-    /** @var int */
-    protected $limit;
 
-    public function __construct(LogParser $logParser, $limit)
+    public function __construct(LogParser $logParser)
     {
         $this->logParser = $logParser;
-        $this->limit = $limit;
     }
 
     /**
@@ -42,8 +39,7 @@ class VarnishDomainFormatter implements Formatter
             $items[] = new Item($domain . ': ' . $count, $count);
         }
 
-        uasort($items, ['AssignmentBundle\Model\Item', 'compare']);
-        return array_slice($items, 0, $this->limit);
+        return $items;
     }
 
     protected function getLineValue($line)

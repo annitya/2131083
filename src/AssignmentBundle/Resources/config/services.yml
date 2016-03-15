@@ -2,16 +2,20 @@ services:
     # varnish-log
     varnish.domain_data_fetcher:
         class: %varnish.data_fetcher.class%
-        arguments: ['%varnish.source_url%', '@varnish.domain_formatter']
+        arguments: ['%varnish.source_url%', '@varnish.domain_formatter', '@descending_item_sorter']
+        calls:
+            - [setLimit, [%varnish.limit%]]
     varnish.file_data_fetcher:
         class: %varnish.data_fetcher.class%
-        arguments: ['%varnish.source_url%', '@varnish.file_formatter']
+        arguments: ['%varnish.source_url%', '@varnish.file_formatter', '@descending_item_sorter']
+        calls:
+            - [setLimit, [%varnish.limit%]]
     varnish.domain_formatter:
         class: %varnish.domain_formatter.class%
-        arguments: ['@varnish.log_parser_wrapper', %varnish.limit%]
+        arguments: ['@varnish.log_parser_wrapper']
     varnish.file_formatter:
         class: %varnish.file_formatter.class%
-        arguments: ['@varnish.log_parser_wrapper', %varnish.limit%]
+        arguments: ['@varnish.log_parser_wrapper']
     varnish.log_parser_wrapper:
         class: %varnish.log_parser.class%
         # Set nginx-format.
@@ -20,12 +24,15 @@ services:
     # article-rss
     article.rss_data_fetcher:
         class: %article.data_fetcher.class%
-        arguments: ['%article.source_url%', '@article.rss_formatter']
+        arguments: ['%article.source_url%', '@article.rss_formatter', '@descending_item_sorter']
     article.rss_formatter:
         class: %article.rss_formatter.class%
     # json-source
     json_data_fetcher:
         class: %json.data_fetcher.class%
-        arguments: ['%json.source_url%', '@json.formatter']
+        arguments: ['%json.source_url%', '@json.formatter', '@descending_item_sorter']
     json.formatter:
         class: %json.formatter.class%
+    #sorting
+    descending_item_sorter:
+        class: %item_sorter_descending.class%

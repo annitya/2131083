@@ -35,7 +35,6 @@ class JsonFormatter implements Formatter
             $items[] = new Item($item['title'], $timestamp);
         }
 
-        uasort($items, ['AssignmentBundle\Model\Item', 'compare']);
         return $items;
     }
 

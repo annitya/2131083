@@ -47,7 +47,6 @@ class ArticleFormatter implements Formatter
             $articleItems[] = new Item($item->title, $timestamp);
         }
 
-        uasort($articleItems, ['AssignmentBundle\Model\Item', 'compare']);
         return $articleItems;
     }
 }

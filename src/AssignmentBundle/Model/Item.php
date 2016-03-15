@@ -12,12 +12,12 @@ class Item
     /** @var string */
     protected $description;
     /** @var mixed */
-    protected $sortField;
+    protected $sortValue;
 
-    public function __construct($description, $sortField)
+    public function __construct($description, $sortValue)
     {
         $this->description = $description;
-        $this->sortField = $sortField;
+        $this->sortValue = $sortValue;
     }
 
     /**
@@ -28,12 +28,11 @@ class Item
         return $this->description;
     }
 
-    public static function compare(Item $a, Item $b)
+    /**
+     * @return mixed
+     */
+    public function getSortValue()
     {
-        if ($a->sortField == $b->sortField) {
-            return 0;
-        }
-
-        return $a->sortField > $b->sortField ? -1 : 1;
+        return $this->sortValue;
     }
 }
