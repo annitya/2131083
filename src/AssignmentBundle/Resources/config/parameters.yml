@@ -1,0 +1,4 @@
+parameters:
+    varnish.data_fetcher.class: AssignmentBundle\Service\DataFetcher
+    varnish.source_url: http://tech.vg.no/intervjuoppgave/varnish.log
+    varnish.data_formatter.class: AssignmentBundle\Model\VarnishFormatter

@@ -8,6 +8,7 @@ class ViewController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AssignmentBundle::pagelayout.html.twig');
+        $varnishItems = $this->container->get('varnish.data_fetcher')->getFormattedData();
+        return $this->render('AssignmentBundle::pagelayout.html.twig', compact('varnishItems'));
     }
 }

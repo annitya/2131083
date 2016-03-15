@@ -1,2 +1,9 @@
-<h2>Totally varnish</h2>
-<p>Lorem ipsum.</p>
+<h3>The top 5 most visited hosts</h3>
+<ul class="list-group">
+    {# @var item \AssignmentBundle\Model\Item #}
+    {% for item in varnishItems %}
+	    <li class="list-group-item">{{ item.description }}</li>
+    {% endfor %}
+</ul>
+
+<h3>The top 5 most downloaded files</h3>
