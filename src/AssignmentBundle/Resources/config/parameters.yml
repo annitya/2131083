@@ -1,4 +1,5 @@
 parameters:
+    # varnish-log
     varnish.data_fetcher.class: AssignmentBundle\Service\DataFetcher
     varnish.source_url: http://tech.vg.no/intervjuoppgave/varnish.log
     varnish.domain_formatter.class: AssignmentBundle\Service\VarnishDomainFormatter
@@ -6,3 +7,7 @@ parameters:
     varnish.log_parser.class: Kassner\LogParser\LogParser
     varnish.log_format: '%%h %%l %%u %%t "%%r" %%>s %%O "%%{Referer}i" \"%%{User-Agent}i"'
     varnish.limit: 5
+    # article-rss
+    article.data_fetcher.class: AssignmentBundle\Service\DataFetcher
+    article.source_url: http://www.vg.no/rss/feed/forsiden/?frontId=1
+    article.rss_formatter.class: AssignmentBundle\Service\ArticleFormatter
