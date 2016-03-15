@@ -8,6 +8,6 @@ class ViewController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AssignmentBundle:Default:index.html.twig');
+        return $this->render('AssignmentBundle::pagelayout.html.twig');
     }
 }

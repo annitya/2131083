@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- TAB NAVIGATION -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <a href="#tab1" role="tab" data-toggle="tab">Varnish</a>
+            </li>
+            <li>
+                <a href="#tab2" role="tab" data-toggle="tab">Tab2</a>
+            </li>
+            <li>
+                <a href="#tab3" role="tab" data-toggle="tab">Tab3</a>
+            </li>
+        </ul>
+        <!-- TAB CONTENT -->
+        <div class="tab-content">
+            <div class="active tab-pane fade in" id="tab1">
+                {% include 'AssignmentBundle:parts:varnish-tab.html.twig' %}
+            </div>
+            <div class="tab-pane fade" id="tab2">
+                <h2>Tab2</h2>
+                <p>Lorem ipsum.</p>
+            </div>
+            <div class="tab-pane fade" id="tab3">
+                <h2>Tab3</h2>
+                <p>Lorem ipsum.</p>
+            </div>
+        </div>
+    </div>
+</div>
