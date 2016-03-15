@@ -1,10 +1,16 @@
 services:
-    varnish.data_fetcher:
+    varnish.domain_data_fetcher:
         class: %varnish.data_fetcher.class%
-        arguments: ['%varnish.source_url%', '@varnish.formatter']
-    varnish.formatter:
-        class: %varnish.data_formatter.class%
-        arguments: ['@varnish.log_parser_wrapper']
+        arguments: ['%varnish.source_url%', '@varnish.domain_formatter']
+    varnish.file_data_fetcher:
+        class: %varnish.data_fetcher.class%
+        arguments: ['%varnish.source_url%', '@varnish.file_formatter']
+    varnish.domain_formatter:
+        class: %varnish.domain_formatter.class%
+        arguments: ['@varnish.log_parser_wrapper', %varnish.limit%]
+    varnish.file_formatter:
+        class: %varnish.file_formatter.class%
+        arguments: ['@varnish.log_parser_wrapper', %varnish.limit%]
     varnish.log_parser_wrapper:
         class: %varnish.log_parser.class%
         # Set nginx-format.

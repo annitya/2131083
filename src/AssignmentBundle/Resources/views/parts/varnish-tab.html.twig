@@ -1,9 +1,15 @@
 <h3>The top 5 most visited hosts</h3>
 <ul class="list-group">
     {# @var item \AssignmentBundle\Model\Item #}
-    {% for item in varnishItems %}
+    {% for item in varnishDomains %}
 	    <li class="list-group-item">{{ item.description }}</li>
     {% endfor %}
 </ul>
 
 <h3>The top 5 most downloaded files</h3>
+<ul class="list-group">
+    {# @var item \AssignmentBundle\Model\Item #}
+    {% for item in varnishFiles %}
+        <li class="list-group-item">{{ item.description }}</li>
+    {% endfor %}
+</ul>
