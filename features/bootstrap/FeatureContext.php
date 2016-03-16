@@ -22,22 +22,45 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     /**
      * @Given /^the "(.*)" should be sorted descending$/
-     *
      * @param string $selector
      */
     public function theShouldBeSortedDescending($selector)
     {
+        $this->assertNodesAreSorted($selector, [$this, 'getVarnishVisitedCount']);
+    }
+
+    /**
+     * @Given /^the articles in "([^"]*)" should be sorted$/
+     * @param $selector
+     */
+    public function theArticlesInShouldBeSorted($selector)
+    {
+        $this->assertNodesAreSorted($selector, [$this, 'getRssArticleTimestamp']);
+    }
+
+    protected function assertNodesAreSorted($selector, $nodeFormatter)
+    {
         $container = $this->getSession()->getPage();
         $nodes = $container->findAll('css', $selector);
-        $previous = $this->getNodeNumeric(array_shift($nodes));
+
+        $previous = $nodeFormatter(array_shift($nodes));
         /** @var NodeElement $node */
         foreach ($nodes as $node) {
-            $current = $this->getNodeNumeric($node);
+            $current = $nodeFormatter($node);
             $this->assert($current < $previous, 'List is not sorted in descending order.');
         }
     }
 
-    protected function getNodeNumeric(NodeElement $nodeElement)
+    /**
+     * @Given /^I wait (\d+) microseconds for the animation$/
+     * @param $microSeconds
+     */
+    public function iWaitMicrosecondsForTheAnimation($microSeconds)
+    {
+        usleep($microSeconds);
+    }
+
+    protected function getVarnishVisitedCount(NodeElement $nodeElement)
     {
         $parts = explode(': ', $nodeElement->getText());
 
@@ -46,6 +69,19 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $this->assert(is_numeric($parts[1]), $wrongFormatMessage);
 
         return $parts[1];
+    }
+
+    protected function getRssArticleTimestamp(NodeElement $nodeElement)
+    {
+        $parts = explode('(', $nodeElement->getText());
+        $this->assert(count($parts) > 0, 'Article is missing date and/or time.');
+        $timeString = trim($parts[count($parts) - 1], ')');
+        $timeString = str_replace('- ', '', $timeString);
+
+        $timestamp = strtotime($timeString);
+        $this->assert(is_numeric($timestamp), 'Date/time is in wrong format');
+
+        return $timestamp;
     }
 
     protected function assert($condition, $message)

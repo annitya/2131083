@@ -44,7 +44,8 @@ class ArticleFormatter implements Formatter
                 continue;
             }
 
-            $articleItems[] = new Item($item->title, $timestamp);
+            $formattedDate = date(' (d.m.Y - H:i:s)', $timestamp);
+            $articleItems[] = new Item($item->title . $formattedDate, $timestamp);
         }
 
         return $articleItems;
