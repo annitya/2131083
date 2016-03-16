@@ -9,6 +9,7 @@ namespace AssignmentBundle\Service;
 
 use AssignmentBundle\Interfaces\Formatter;
 use AssignmentBundle\Interfaces\ItemSorter;
+use GuzzleHttp\Client;
 use Tedivm\StashBundle\Service\CacheService;
 
 class DataFetcher
@@ -34,17 +35,7 @@ class DataFetcher
 
     public function getFormattedData()
     {
-        $key = md5($this->sourceUrl);
-        $item = $this->cache->getItem($key);
-        if ($item->isHit()) {
-            $data = $item->get();
-        }
-        else {
-            // @TODO: Add exception handling.
-            $data = file_get_contents($this->sourceUrl);
-            $item->set($data);
-            $item->save();
-        }
+        $data = $this->fetchData();
 
         $items = $this->formatter->format($data);
         $items = $this->itemSorter->sort($items);
@@ -53,6 +44,27 @@ class DataFetcher
         }
 
         return $items;
+    }
+
+    protected function fetchData()
+    {
+        $key = md5($this->sourceUrl);
+        $item = $this->cache->getItem($key);
+        if ($item->isHit()) {
+            return $item->get();
+        }
+
+        $client = new Client();
+        $response = $client->request('GET', $this->sourceUrl);
+        $data = $response->getBody()->getContents();
+        if (!$data) {
+            throw new \Exception('Got empty response from server.');
+        }
+
+        $item->set($data);
+        $item->save();
+
+        return $data;
     }
 
     /**

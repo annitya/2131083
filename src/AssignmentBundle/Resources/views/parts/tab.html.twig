@@ -1,0 +1,15 @@
+<h3>{{ title }}</h3>
+{# @var itemResponse \AssignmentBundle\Model\ItemResponse #}
+{% if not itemResponse.error %}
+    <ul class="list-group">
+        {# @var item \AssignmentBundle\Model\Item #}
+        {% for item in itemResponse.items %}
+            <li class="list-group-item">{{ item.description }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="alert alert-danger">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    	<strong>Something unexpected happened:</strong> {{ itemResponse.error }}
+    </div>
+{% endif %}

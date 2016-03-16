@@ -2,18 +2,51 @@
 
 namespace AssignmentBundle\Controller;
 
+use AssignmentBundle\Model\ItemResponse;
+use AssignmentBundle\Service\DataFetcher;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ViewController extends Controller
 {
     public function indexAction()
     {
-        $varnishDomains = $this->container->get('varnish.domain_data_fetcher')->getFormattedData();
-        $varnishFiles = $this->container->get('varnish.file_data_fetcher')->getFormattedData();
-        $articles = $this->container->get('article.rss_data_fetcher')->getFormattedData();
-        $jsonArticles = $this->container->get('json_data_fetcher')->getFormattedData();
+        return $this->render('AssignmentBundle::pagelayout.html.twig');
+    }
 
-        $params = compact('varnishDomains', 'varnishFiles', 'articles', 'jsonArticles');
-        return $this->render('AssignmentBundle::pagelayout.html.twig', $params);
+    public function varnishAction()
+    {
+        $title = 'Varnish-log';
+        $itemResponse = $this->fetchData($this->container->get('varnish.domain_data_fetcher'));
+
+        return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
+    }
+
+    public function rssFeedAction()
+    {
+        $title = 'RSS-feed';
+        $itemResponse = $this->fetchData($this->container->get('article.rss_data_fetcher'));
+
+        return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
+    }
+
+    public function jsonArticlesAction()
+    {
+        $title = 'JSON-articles';
+        $itemResponse = $this->fetchData($this->container->get('json_data_fetcher'));
+
+        return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
+    }
+
+    protected function fetchData(DataFetcher $dataFetcher)
+    {
+        $itemResponse = new ItemResponse();
+        try {
+            $itemResponse->items = $dataFetcher->getFormattedData();
+        }
+        catch (\Exception $e) {
+            $itemResponse->error = 'Unable to fetch data.';
+        }
+
+        return $itemResponse;
     }
 }
