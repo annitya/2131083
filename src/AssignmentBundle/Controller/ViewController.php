@@ -5,6 +5,7 @@ namespace AssignmentBundle\Controller;
 use AssignmentBundle\Model\ItemResponse;
 use AssignmentBundle\Service\DataFetcher;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class ViewController extends Controller
 {
@@ -43,6 +44,14 @@ class ViewController extends Controller
         $itemResponse = $this->fetchData($this->container->get('json_data_fetcher'));
 
         return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
+    }
+
+    protected function render($view, array $parameters = [], Response $response = null)
+    {
+        $response = $response ?: new Response();
+        $response->setSharedMaxAge($this->container->getParameter('default_ttl'));
+
+        return parent::render($view, $parameters, $response);
     }
 
     protected function fetchData(DataFetcher $dataFetcher)
