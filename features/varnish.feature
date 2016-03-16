@@ -20,9 +20,17 @@ Feature: Render three tabs which fetches and sorts data from various sources.
      |#varnish-tab ul:nth-of-type(2) li|
 
   @javascript
-  Scenario: There should be at least one article.
+  Scenario: At least one article from rss-feed is properly rendered. Items are sorted descending.
     When I am on the homepage
     And I follow "Articles"
     And I wait 100000 microseconds for the animation
     Then I should see an "ul li" element
     And the articles in "#rss-tab ul li" should be sorted
+
+  @javascript
+  Scenario: At least one article from json-feed is rendered properly. Items should be sorted descending.
+    When I am on the homepage
+    And I follow "Articles from json"
+    And I wait 100000 microseconds for the animation
+    Then I should see an "ul li" element
+    And the articles in "#json-tab ul li" should be sorted

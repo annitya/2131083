@@ -32,7 +32,8 @@ class JsonFormatter implements Formatter
                 continue;
             }
 
-            $items[] = new Item($item['title'], $timestamp);
+            $formattedDate = date(' (d.m.Y - H:i:s)', $timestamp);
+            $items[] = new Item($item['title'] . $formattedDate, $timestamp);
         }
 
         return $items;
