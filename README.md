@@ -16,7 +16,8 @@ Be sure to make use of the new grace-feature available in Varnish 4.
 Running tests
 -------------
 
-1. Fire up the built in php server.
-2. Start selenium: vendor/selenium-server-standalone
-3. Type: bin/behat
-4. Lean back, sip your coffee and enjoy.
+1. Make sure FireFox is installed
+2. Fire up the built in php server.
+3. Start selenium: vendor/selenium-server-standalone
+4. Type: vendor/bin/behat
+5. Lean back, sip your coffee and enjoy.
