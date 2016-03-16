@@ -13,3 +13,10 @@ During the installation you will be requested to enter the default-ttl.
 I high-traffic situations we recommend a short-ttl and varnish in front.
 Be sure to make use of the new grace-feature available in Varnish 4.
 
+Running tests
+-------------
+
+1. Fire up the built in php server.
+2. Start selenium: vendor/selenium-server-standalone
+3. Type: bin/behat
+4. Lean back, sip your coffee and enjoy.
