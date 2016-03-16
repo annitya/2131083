@@ -62,13 +62,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     protected function getVarnishVisitedCount(NodeElement $nodeElement)
     {
-        $parts = explode(': ', $nodeElement->getText());
+        $parts = explode(' ', $nodeElement->getText());
 
         $wrongFormatMessage = 'Text in element has wrong format.';
-        $this->assert(count($parts) == 2, $wrongFormatMessage);
+        $this->assert(count($parts) > 1, $wrongFormatMessage);
         $this->assert(is_numeric($parts[1]), $wrongFormatMessage);
 
-        return $parts[1];
+        return $parts[count($parts) - 1];
     }
 
     protected function getRssArticleTimestamp(NodeElement $nodeElement)
