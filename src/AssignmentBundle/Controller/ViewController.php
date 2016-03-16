@@ -13,10 +13,18 @@ class ViewController extends Controller
         return $this->render('AssignmentBundle::pagelayout.html.twig');
     }
 
-    public function varnishAction()
+    public function varnishDomainsAction()
     {
-        $title = 'Varnish-log';
+        $title = 'The top 5 most visited hosts';
         $itemResponse = $this->fetchData($this->container->get('varnish.domain_data_fetcher'));
+
+        return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
+    }
+
+    public function varnishFilesAction()
+    {
+        $title = 'The top 5 most downloaded files';
+        $itemResponse = $this->fetchData($this->container->get('varnish.file_data_fetcher'));
 
         return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
     }
