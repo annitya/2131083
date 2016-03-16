@@ -22,6 +22,8 @@ class DataFetcher
     protected $itemSorter;
     /** @var bool|int */
     protected $limit = false;
+    /** @var int */
+    protected $ttl;
     /** @var CacheService */
     protected $cache;
 
@@ -31,6 +33,18 @@ class DataFetcher
         $this->formatter = $formatter;
         $this->itemSorter = $itemSorter;
         $this->cache = $cache;
+    }
+
+    public function refreshCache()
+    {
+        $key = md5($this->sourceUrl);
+        $this->cache->deleteItem($key);
+
+        $data = $this->getHttpResponse();
+        $item = $this->cache->getItem($key);
+        $item->set($data);
+        $item->setTTL($this->ttl);
+        $item->save();
     }
 
     public function getFormattedData()
@@ -54,16 +68,27 @@ class DataFetcher
             return $item->get();
         }
 
+        $data = $this->getHttpResponse();
+
+        $item->set($data);
+        $item->setTTL($this->ttl);
+        $item->save();
+
+        return $data;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    protected function getHttpResponse()
+    {
         $client = new Client();
         $response = $client->request('GET', $this->sourceUrl);
         $data = $response->getBody()->getContents();
         if (!$data) {
             throw new \Exception('Got empty response from server.');
         }
-
-        $item->set($data);
-        $item->save();
-
         return $data;
     }
 
@@ -73,6 +98,14 @@ class DataFetcher
     public function setLimit($limit)
     {
         $this->limit = $limit;
+    }
+
+    /**
+     * @param int $ttl
+     */
+    public function setTtl($ttl)
+    {
+        $this->ttl = $ttl;
     }
 }
 

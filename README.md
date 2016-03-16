@@ -6,6 +6,7 @@ Installation
 1. Clone repository
 2. Composer install
 3. Configure your preferred http-server, be it nginx or apache.
+4. Run the cache-warmer to prepare site and to make sure nothing bad happens.
 
 If you only wish to test the application, you may also start the built in server: php bin/console server:start/run
 
@@ -21,3 +22,10 @@ Running tests
 3. Start selenium: vendor/selenium-server-standalone
 4. Type: vendor/bin/behat
 5. Lean back, sip your coffee and enjoy.
+
+Fun with caching (Yes... it can be fun)
+---------------------------------------
+
+1. Set a high ttl for stash upon composer install.
+2. Schedule the cache-warmer to run at your leisure.
+3. No more cache-misses on page-load; ever.

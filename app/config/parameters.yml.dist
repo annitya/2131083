@@ -5,3 +5,4 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ada295e20e273a096cf0b15d3ceed1600263faf8
     default_ttl: 60
+    stash_cache_ttl: 60
