@@ -8,16 +8,23 @@
         <meta name="description" content="Assignment">
         <meta name="author" content="2131083">
         <title>Assignment</title>
-
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon-96x96.png') }}">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        {# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> #}
+        <link rel="stylesheet" href="{{ asset('bundles/assignment/css/bootstrap.min.css') }}" />
 
         <!-- Latest compiled and minified JavaScript -->
     </head>
     <body>
+        <div class="container">
+            <div class="page-header">
+                <img src="{{ asset('bundles/assignment/images/Drawing.png') }}" alt="Fetch the conceptual stuff" style="opacity: 0.45" />
+            </div>
+        </div>
+
         {% include 'AssignmentBundle:parts:tab-container.html.twig' %}
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
