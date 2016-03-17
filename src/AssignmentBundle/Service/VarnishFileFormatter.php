@@ -35,9 +35,13 @@ class VarnishFileFormatter extends VarnishDomainFormatter
             return false;
         }
 
-        // @TODO: Possible pitfall: Content served from static servers may actually be the same file.
-        // @TODO: Consider custom hash to determine uniqueness of file.
+        /**
+         * @TODO: Better handling of static files.
+         *
+         * Files with identical names provided by the different static servers are very likely the same.
+         * Many of the files in the varnish-log lacks size, so a comparison is impractical.
+         * I consider this edge-case out of scope for now, but it is definitely something I would fix IRL.
+         */
         return $urlParts['host'] . $urlParts['path'];
     }
-
 }
