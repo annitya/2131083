@@ -10,6 +10,9 @@ namespace AssignmentBundle\Service;
 use AssignmentBundle\Interfaces\Formatter;
 use AssignmentBundle\Model\Item;
 
+/**
+ * Parses articles stored as JSON.
+ */
 class JsonFormatter implements Formatter
 {
     /**

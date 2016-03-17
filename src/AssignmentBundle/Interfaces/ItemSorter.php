@@ -9,6 +9,9 @@ namespace AssignmentBundle\Interfaces;
 
 use AssignmentBundle\Model\Item;
 
+/**
+ * Contract for services which are used to sort Items created by a formatter.
+ */
 interface ItemSorter
 {
     /**

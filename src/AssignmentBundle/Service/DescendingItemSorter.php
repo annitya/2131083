@@ -10,6 +10,9 @@ namespace AssignmentBundle\Service;
 use AssignmentBundle\Interfaces\ItemSorter;
 use AssignmentBundle\Model\Item;
 
+/**
+ * Sorts items in descending order.
+ */
 class DescendingItemSorter implements ItemSorter
 {
     /**

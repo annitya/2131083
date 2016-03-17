@@ -7,6 +7,9 @@
 
 namespace AssignmentBundle\Model;
 
+/**
+ * Simple value-container for single parsed items.
+ */
 class Item
 {
     /** @var string */

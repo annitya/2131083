@@ -9,6 +9,7 @@ namespace AssignmentBundle\Service;
 
 use AssignmentBundle\Interfaces\Formatter;
 use AssignmentBundle\Interfaces\ItemSorter;
+use AssignmentBundle\Model\Item;
 use GuzzleHttp\Client;
 use Tedivm\StashBundle\Service\CacheService;
 
@@ -27,6 +28,14 @@ class DataFetcher
     /** @var CacheService */
     protected $cache;
 
+    /**
+     * DataFetcher constructor.
+     *
+     * @param $sourceUrl
+     * @param Formatter $formatter
+     * @param ItemSorter $itemSorter
+     * @param CacheService $cache
+     */
     public function __construct($sourceUrl, Formatter $formatter, ItemSorter $itemSorter, CacheService $cache)
     {
         $this->sourceUrl = $sourceUrl;
@@ -35,6 +44,11 @@ class DataFetcher
         $this->cache = $cache;
     }
 
+    /**
+     * Invalidates and updates cache.
+     *
+     * @throws \Exception
+     */
     public function refreshCache()
     {
         $key = md5($this->sourceUrl);
@@ -47,6 +61,11 @@ class DataFetcher
         $item->save();
     }
 
+    /**
+     * Fetches, formats and sorts data from the configured source.
+     *
+     * @return array|Item[]
+     */
     public function getFormattedData()
     {
         $data = $this->fetchData();
@@ -60,6 +79,13 @@ class DataFetcher
         return $items;
     }
 
+    /**
+     * Retrives data from cache. Fallbacks to live-sources when cache expires.
+     *
+     * @return mixed|null|string
+     *
+     * @throws \Exception
+     */
     protected function fetchData()
     {
         $key = md5($this->sourceUrl);
@@ -78,7 +104,10 @@ class DataFetcher
     }
 
     /**
+     * Guzzles data from the given sourceUrl.
+     *
      * @return string
+     *
      * @throws \Exception
      */
     protected function getHttpResponse()
@@ -89,6 +118,7 @@ class DataFetcher
         if (!$data) {
             throw new \Exception('Got empty response from server.');
         }
+
         return $data;
     }
 

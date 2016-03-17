@@ -11,6 +11,9 @@ use AssignmentBundle\Interfaces\Formatter;
 use AssignmentBundle\Model\Item;
 use Kassner\LogParser\LogParser;
 
+/**
+ * Retrieves domains from varnish-log.
+ */
 class VarnishDomainFormatter implements Formatter
 {
     /** @var LogParser */

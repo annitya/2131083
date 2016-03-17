@@ -31,13 +31,21 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     /**
      * @Given /^the articles in "([^"]*)" should be sorted$/
-     * @param $selector
+     * @param string $selector
      */
     public function theArticlesInShouldBeSorted($selector)
     {
         $this->assertNodesAreSorted($selector, [$this, 'getRssArticleTimestamp']);
     }
 
+    /**
+     * Makes sure the provided DOM-nodes are sorted in descending order.
+     *
+     * @param string $selector
+     * @param callable $nodeFormatter
+     *
+     * @throws ExpectationException
+     */
     protected function assertNodesAreSorted($selector, $nodeFormatter)
     {
         $container = $this->getSession()->getPage();
@@ -52,7 +60,10 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * Helper method. Used to wait for browser-animations to finish.
+     *
      * @Given /^I wait (\d+) microseconds for the animation$/
+     *
      * @param $microSeconds
      */
     public function iWaitMicrosecondsForTheAnimation($microSeconds)
@@ -60,6 +71,15 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         usleep($microSeconds);
     }
 
+    /**
+     * Extracts the visit-count from the text within the element.
+     *
+     * @param NodeElement $nodeElement
+     *
+     * @return mixed
+     *
+     * @throws ExpectationException
+     */
     protected function getVarnishVisitedCount(NodeElement $nodeElement)
     {
         $parts = explode(' ', $nodeElement->getText());
@@ -71,6 +91,15 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         return $parts[count($parts) - 1];
     }
 
+    /**
+     * Extracts timestamp from time-date string used by RSS-list.
+     *
+     * @param NodeElement $nodeElement
+     *
+     * @return int
+     *
+     * @throws ExpectationException
+     */
     protected function getRssArticleTimestamp(NodeElement $nodeElement)
     {
         $parts = explode('(', $nodeElement->getText());
@@ -84,6 +113,14 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         return $timestamp;
     }
 
+    /**
+     * Throws a testing-compliant exception if the condition is not evaluated as truthy.
+     *
+     * @param $condition
+     * @param $message
+     *
+     * @throws ExpectationException
+     */
     protected function assert($condition, $message)
     {
         $driver = $this->getMink()->getSession()->getDriver();

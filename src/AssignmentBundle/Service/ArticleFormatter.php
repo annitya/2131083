@@ -10,6 +10,9 @@ namespace AssignmentBundle\Service;
 use AssignmentBundle\Interfaces\Formatter;
 use AssignmentBundle\Model\Item;
 
+/**
+ * Formats articles contained within XML.
+ */
 class ArticleFormatter implements Formatter
 {
     /**

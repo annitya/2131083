@@ -9,6 +9,9 @@ namespace AssignmentBundle\Interfaces;
 
 use AssignmentBundle\Model\Item;
 
+/**
+ * All formatters applied to data retrieved via a DataFetcher must implement this interface.
+ */
 interface Formatter
 {
     /**

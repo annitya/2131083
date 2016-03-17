@@ -9,11 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ViewController extends Controller
 {
+    /**
+     * Renders homepage.
+     *
+     * @return Response
+     */
     public function indexAction()
     {
         return $this->render('AssignmentBundle::pagelayout.html.twig');
     }
 
+    /**
+     * Top 5 most visited hosts.
+     *
+     * @return Response
+     */
     public function varnishDomainsAction()
     {
         $title = 'The top 5 most visited hosts';
@@ -22,6 +32,11 @@ class ViewController extends Controller
         return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
     }
 
+    /**
+     * Top 5 most downloaded files.
+     *
+     * @return Response
+     */
     public function varnishFilesAction()
     {
         $title = 'The top 5 most downloaded files';
@@ -30,6 +45,11 @@ class ViewController extends Controller
         return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
     }
 
+    /**
+     * Renders sorted articles from the RSS-feed.
+     *
+     * @return Response
+     */
     public function rssFeedAction()
     {
         $title = 'RSS-feed';
@@ -38,6 +58,11 @@ class ViewController extends Controller
         return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
     }
 
+    /**
+     * Renders articles from the JSON-feed.
+     *
+     * @return Response
+     */
     public function jsonArticlesAction()
     {
         $title = 'JSON-articles';
@@ -46,6 +71,15 @@ class ViewController extends Controller
         return $this->render('AssignmentBundle:parts:tab.html.twig', compact('itemResponse', 'title'));
     }
 
+    /**
+     * Overridden method to add cache-settings to response.
+     *
+     * @param string $view
+     * @param array $parameters
+     * @param Response|null $response
+     *
+     * @return Response
+     */
     protected function render($view, array $parameters = [], Response $response = null)
     {
         $response = $response ?: new Response();
@@ -54,6 +88,14 @@ class ViewController extends Controller
         return parent::render($view, $parameters, $response);
     }
 
+    /**
+     * Constructs an item-response from the result returned by the provided data-fetcher.
+     * Also makes sure exceptions are handled gracefully.
+     *
+     * @param DataFetcher $dataFetcher
+     *
+     * @return ItemResponse
+     */
     protected function fetchData(DataFetcher $dataFetcher)
     {
         $itemResponse = new ItemResponse();

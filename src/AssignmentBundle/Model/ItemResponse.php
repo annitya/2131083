@@ -7,6 +7,9 @@
 
 namespace AssignmentBundle\Model;
 
+/**
+ * Used in twig-templates.
+ */
 class ItemResponse
 {
     /** @var Item[] */

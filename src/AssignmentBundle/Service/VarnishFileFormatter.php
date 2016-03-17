@@ -7,6 +7,9 @@
 
 namespace AssignmentBundle\Service;
 
+/**
+ * Retrieves files from varnish-log.
+ */
 class VarnishFileFormatter extends VarnishDomainFormatter
 {
     protected function getLineValue($line)
