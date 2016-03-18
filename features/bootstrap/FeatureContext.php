@@ -55,7 +55,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         /** @var NodeElement $node */
         foreach ($nodes as $node) {
             $current = $nodeFormatter($node);
-            $this->assert($current < $previous, 'List is not sorted in descending order.');
+            $this->assert($current <= $previous, 'List is not sorted in descending order.');
         }
     }
 
